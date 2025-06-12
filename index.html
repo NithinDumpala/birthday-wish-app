@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Send a Birthday Wish!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f9d423, #ff4e50);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .wish-box {
+      background-color: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .wish-box h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #ff4e50;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #ff4e50;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #e63e3e;
+    }
+
+    @media (max-width: 500px) {
+      .wish-box {
+        padding: 20px;
+        font-size: 14px;
+      }
+
+      input, select, button {
+        font-size: 14px;
+        padding: 10px;
+      }
+
+      .wish-box h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wish-box">
+    <h1>Send a Birthday Wish 🎈</h1>
+    <label for="name">Name</label>
+    <input type="text" id="name" placeholder="Enter Name" required />
+
+    <label for="note">Message</label>
+    <input type="text" id="note" placeholder="Write your message" required />
+
+    <label for="theme">Theme</label>
+    <select id="theme">
+      <option value="classic">Classic</option>
+      <option value="gold">Gold & Black</option>
+      <option value="blue">Cool Blue</option>
+    </select>
+
+    <label for="recipient">Recipient</label>
+    <select id="recipient">
+      <option value="love">Love</option>
+      <option value="family">Family</option>
+      <option value="friends">Friends</option>
+      <option value="colleagues">Colleagues</option>
+      <option value="higherups">Higher Official</option>
+    </select>
+
+    <button onclick="submitWish()">Next ➡️</button>
+  </div>
+
+  <script>
+    function submitWish() {
+      const name = document.getElementById("name").value.trim();
+      const note = document.getElementById("note").value.trim();
+      const theme = document.getElementById("theme").value;
+      const recipient = document.getElementById("recipient").value;
+
+      if (!name || !note || !recipient) {
+        alert("Please enter all fields including name, note, and recipient.");
+        return;
+      }
+
+     const url = `wish.html?name=${encodeURIComponent(name)}&note=${encodeURIComponent(note)}&theme=${theme}&recipient=${recipient}`;
+      window.location.href = url;
+    }
+  </script>
+</body>
+</html>

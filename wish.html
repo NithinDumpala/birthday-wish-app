@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Birthday Wish</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Great+Vibes&family=Roboto&family=Sacramento&family=Quicksand&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: radial-gradient(circle, #ffe9ec 0%, #ffc4cc 100%);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card {
+      background: white;
+      padding: 50px;
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      max-width: 800px;
+      width: 95%;
+      position: relative;
+      text-align: center;
+      transition: all 0.3s ease-in-out;
+      z-index: 2;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .icon-button {
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      padding: 8px;
+      transition: transform 0.2s ease;
+    }
+
+    .icon-button:hover {
+      transform: scale(1.3);
+    }
+
+    .right-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 48px;
+      color: #ff4e50;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 24px;
+      font-family: 'Quicksand', sans-serif;
+      color: #333;
+      margin: 10px 0;
+    }
+
+    .message-box {
+      margin-top: 30px;
+      background: linear-gradient(145deg, #fce4ec, #f8bbd0);
+      padding: 40px;
+      border-radius: 25px;
+      font-size: 22px;
+      line-height: 1.8;
+      box-shadow: 0 8px 16px rgba(255, 105, 135, 0.3);
+      border: 1px solid #f48fb1;
+      color: #4a4a4a;
+    }
+
+    .classic {
+      background: linear-gradient(135deg, #fdfbfb, #ebedee);
+    }
+
+    .gold {
+      background: linear-gradient(135deg, #000000, #ffd700);
+      color: white;
+    }
+
+    .blue {
+      background: linear-gradient(135deg, #2193b0, #6dd5ed);
+      color: white;
+    }
+
+    .decor-image {
+      position: absolute;
+      z-index: 1;
+      opacity: 0.5;
+    }
+
+    .cake {
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 150px;
+    }
+
+    .balloons {
+      top: 0;
+      right: 10px;
+      height: 180px;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 30px;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+
+      p {
+        font-size: 18px;
+      }
+
+      .icon-button {
+        font-size: 22px;
+      }
+
+      .cake, .balloons {
+        height: 100px;
+      }
+
+      .message-box {
+        padding: 20px;
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <img src="https://cdn.pixabay.com/photo/2014/04/02/10/47/birthday-303149_1280.png" alt="Cake" class="decor-image cake">
+  <img src="https://cdn.pixabay.com/photo/2016/03/31/20/34/balloons-1294994_1280.png" alt="Balloons" class="decor-image balloons">
+
+  <div class="card" id="wishCard">
+    <div class="top-bar">
+      <button class="icon-button" onclick="goHome()" title="Back">🔙</button>
+      <div class="right-icons">
+        <button class="icon-button" onclick="copyWish()" title="Copy">📋</button>
+        <button class="icon-button" onclick="downloadWish()" title="Download">⬇️</button>
+        <button class="icon-button" onclick="shareWish()" title="Share">📤</button>
+      </div>
+    </div>
+
+    <h1 id="greeting">🎉 Happy Birthday!</h1>
+    <p id="message"></p>
+    <div class="message-box" id="messageBox"></div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name");
+    const note = params.get("note");
+    const theme = params.get("theme");
+    const recipient = params.get("recipient");
+
+    const greeting = `🎉 Happy Birthday, ${name}!`;
+    document.getElementById("greeting").textContent = greeting;
+    document.getElementById("message").textContent = note;
+    document.getElementById("wishCard").classList.add(theme);
+
+    const recipientMessages = {
+      love: [
+        "To my dearest, your smile is the reason my days shine brighter. Happy Birthday, love!",
+        "With all my heart, I wish you endless joy and romance on your special day. ❤️🎂",
+        "Let’s make today unforgettable, just like you."
+      ],
+      family: [
+        "Family means everything, and today we celebrate the most special part of ours – you!",
+        "Wishing you love, laughter, and legacy. Happy Birthday!",
+        "You're the heartbeat of our family.🏡💖"
+      ],
+      friends: [
+        "To the one who makes life fun, cheers to another year of craziness!",
+        "You’re more than a friend, you’re family. Happiest Birthday!",
+        "Let’s create more memories today and forever.🎉🕺"
+      ],
+      colleagues: [
+        "Wishing you success, good health, and joy on your special day!",
+        "You make work feel like fun. Have a great birthday!",
+        "Here’s to a year of new goals and great achievements.🎂💼"
+      ],
+      higherups: [
+        "Warm wishes on your birthday. May you continue to lead with wisdom and grace.",
+        "Your guidance inspires us daily. Happy Birthday!",
+        "Best wishes for continued success and happiness.🥂🏆"
+      ]
+    };
+
+    const customMessages = recipientMessages[recipient] || [];
+    const box = document.getElementById("messageBox");
+    customMessages.forEach(msg => {
+      const p = document.createElement("p");
+      p.textContent = msg;
+      box.appendChild(p);
+    });
+
+    function goHome() {
+      window.location.href = "index.html";
+    }
+
+    function copyWish() {
+      const allText = `${greeting}\n${note}\n\n${customMessages.join("\n")}`;
+      navigator.clipboard.writeText(allText).then(() => {
+        alert("Wish copied to clipboard!");
+      });
+    }
+
+    function downloadWish() {
+      const allText = `${greeting}\n${note}\n\n${customMessages.join("\n")}`;
+      const blob = new Blob([allText], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${name}_BirthdayWish.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function shareWish() {
+      const allText = `${greeting}\n${note}\n\n${customMessages.join("\n")}`;
+      if (navigator.share) {
+        navigator.share({
+          title: "Birthday Wish",
+          text: allText
+        }).catch(err => console.log("Share failed", err));
+      } else {
+        alert("Sharing is not supported on this device.");
+      }
+    }
+  </script>
+</body>
+</html>
